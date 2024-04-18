@@ -68,6 +68,7 @@ import presentation.component.IconCircleBorder
 import presentation.component.NetworkImage
 import presentation.component.Search
 import presentation.component.ShimmerAnimation
+import presentation.screen.category.CategoryScreen
 import recipes_kmp.composeapp.generated.resources.Res
 import recipes_kmp.composeapp.generated.resources.category
 import recipes_kmp.composeapp.generated.resources.cookie
@@ -97,7 +98,7 @@ class HomeScreen() : Screen {
 
         Surface(
             color = MaterialTheme.colorScheme.background,
-            modifier = Modifier.padding(PaddingValues(top = 24.dp, bottom = 48.dp))
+            modifier = Modifier.padding(PaddingValues(vertical = 48.dp))
         ) {
             when (uiState) {
                 is UiState.Loading -> {
@@ -118,7 +119,7 @@ class HomeScreen() : Screen {
                         listCategory = category?.categories,
                         listRecipe = emptyList(),
                         onCategoryClick = { query ->
-//                            onCategoryClick(query)
+                            navigator?.push(CategoryScreen(query))
                         },
                         onDetailClick = {},
                         onSearch = { query ->
@@ -144,7 +145,7 @@ class HomeScreen() : Screen {
                         listCategory = category?.categories,
                         listRecipe = data?.meals,
                         onCategoryClick = { query ->
-//                            onCategoryClick(query)
+                            navigator?.push(CategoryScreen(query))
                         },
                         onDetailClick = { query ->
                             coroutineScope.launch {
@@ -189,7 +190,7 @@ fun HomeContent(
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 32.dp, start = 24.dp, end = 24.dp),
+                .padding(horizontal = 24.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {

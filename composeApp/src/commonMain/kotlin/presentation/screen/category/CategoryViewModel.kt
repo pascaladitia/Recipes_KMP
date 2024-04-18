@@ -2,7 +2,7 @@ package presentation.screen.category
 
 import data.repository.Repository
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import domain.model.dashboard.ResponseDashboard
+import domain.model.FilterCategoryResponse
 import domain.usecases.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,22 +15,22 @@ class CategoryViewModel(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _dashboard = MutableStateFlow<UiState<ResponseDashboard>>(UiState.Loading)
-    val dashboard: StateFlow<UiState<ResponseDashboard>> = _dashboard.asStateFlow()
+    private val _filterCategory = MutableStateFlow<UiState<FilterCategoryResponse>>(UiState.Empty)
+    val filterCategory: StateFlow<UiState<FilterCategoryResponse>> = _filterCategory.asStateFlow()
 
-    fun loadDashboard() {
+    fun loadFilterCategory(query: String) {
         viewModelScope.launch {
-            _dashboard.value = UiState.Loading
+            _filterCategory.value = UiState.Loading
             try {
-                val response = repository.dashboard()
-                if (response.code == 200) {
-                    _dashboard.value = UiState.Success(response)
+                val response = repository.getFilterCategory(query)
+                if (!response.meals.isNullOrEmpty()) {
+                    _filterCategory.value = UiState.Success(response)
                 } else {
-                    _dashboard.value = UiState.Error(response.message.toString())
+                    _filterCategory.value = UiState.Empty
                 }
             } catch (e: Exception) {
                 val error = e.message.toString()
-                _dashboard.value = UiState.Error(error)
+                _filterCategory.value = UiState.Error(error)
             }
 
         }
