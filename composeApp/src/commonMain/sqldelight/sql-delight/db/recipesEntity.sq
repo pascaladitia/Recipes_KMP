@@ -1,0 +1,33 @@
+CREATE TABLE recipesEntity(
+ id INTEGER NOT NULL PRIMARY KEY,
+ title TEXT NOT NULL,
+ videoThumbnail TEXT NOT NULL,
+ videoDesc TEXT NOT NULL ,
+ isVerified INTEGER  NOT NULL,
+ channelSubs TEXT NOT NULL,
+ likes TEXT NOT NULL ,
+ channelName TEXT NOT NULL,
+ channelImage TEXT NOT NULL,
+ views TEXT NOT NULL,
+ pubDate TEXT NOT NULL,
+ duration TEXT NOT NULL
+);
+
+getVideoById:
+SELECT * FROM recipesEntity
+WHERE id = :id;
+
+getAllVideos:
+SELECT * FROM recipesEntity;
+
+getVideoByTitle:
+SELECT * FROM recipesEntity
+WHERE title = :title;
+
+deleteVideoById:
+DELETE FROM recipesEntity
+WHERE id = :id;
+
+insertVideos:
+INSERT OR REPLACE INTO recipesEntity(id,title,videoThumbnail,videoDesc,isVerified,channelSubs,likes,channelName,channelImage,views,pubDate,duration)
+VALUES (?,?,?,?,?,?,?,?,?,?,?,?);

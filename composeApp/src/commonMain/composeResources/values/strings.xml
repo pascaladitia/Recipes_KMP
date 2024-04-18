@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Recipes_KMP</string>
+    <string name="cookie">Cookie</string>
+    <string name="category">Category</string>
+    <string name="just_for_you">Just for you</string>
+    <string name="food_recipes">Food Recipes</string>
+    <string name="no_tags">No Tags</string>
+    <string name="id_recipe">Id Recipe</string>
+    <string name="area">Area</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="step_cooking">Step Cooking</string>
+    <string name="empty">Recipe empty, please try again!</string>
+    <string name="favorite_empty">Favorites are empty</string>
+    <string name="select_photo_source">Select Photo Source</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+</resources>
