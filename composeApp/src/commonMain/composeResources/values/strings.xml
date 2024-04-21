@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">Recipes_KMP</string>
+    <string name="cyclone">Cyclone</string>
+    <string name="open_github">Open github</string>
+    <string name="run">Run</string>
+    <string name="stop">Stop</string>
+    <string name="theme">Theme</string>
     <string name="cookie">Cookie</string>
     <string name="category">Category</string>
     <string name="just_for_you">Just for you</string>

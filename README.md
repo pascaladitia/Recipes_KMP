@@ -1,32 +1,22 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# Compose Multiplatform Application
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+## Before running!
+ - check your system with [KDoctor](https://github.com/Kotlin/kdoctor)
+ - install JDK 17 or higher on your machine
+ - add `local.properties` file to the project root and set a path to Android SDK there
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+### Android
+To run the application on android device/emulator:  
+ - open project in Android Studio and run imported android run configuration
 
-**Tech Stack Highlights**
-- voyager = "1.0.0"
-- kotlinx-coroutines = "1.8.0"
-- ktor = "2.3.9"
-- kermit = "2.0.2"
-- composeIcons = "1.1.0"
-- kotlinx-serialization = "1.6.3"
-- kotlinx-datetime = "0.6.0-RC.2"
-- moko-mvvm = "0.16.1"
-- moko-permission = "0.17.0"
-- kamelImage = "0.9.3"
-- buildConfig = "4.1.1"
-- sqlDelight = "2.0.1"
-- multiplatformSettings = "1.1.1"
-- preferenceKtx = "1.2.1"
-- peekaboo = "0.5.1"
-- pagingCommon = "3.3.0-alpha02-0.4.0"
-- pagingComposeCommon = "3.3.0-alpha02-0.4.0"
+To build the application bundle:
+ - run `./gradlew :composeApp:assembleDebug`
+ - find `.apk` file in `composeApp/build/outputs/apk/debug/composeApp-debug.apk`
+Run android simulator UI tests: `./gradlew :composeApp:pixel5Check`
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+### iOS
+To run the application on iPhone device/simulator:
+ - Open `iosApp/iosApp.xcproject` in Xcode and run standard configuration
+ - Or use [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile) for Android Studio
+Run iOS simulator UI tests: `./gradlew :composeApp:iosSimulatorArm64Test`
+
