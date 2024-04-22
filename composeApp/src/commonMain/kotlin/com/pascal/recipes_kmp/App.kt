@@ -8,10 +8,10 @@ import cafe.adriel.voyager.core.lifecycle.ScreenLifecycleStore
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.Navigator
+import com.pascal.recipes_kmp.presentation.screen.splash.SplashScreen
 import com.pascal.recipes_kmp.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.core.annotation.Single
-import com.pascal.recipes_kmp.presentation.screen.splash.SplashScreen
 
 @Composable
 @Preview
@@ -32,10 +32,10 @@ class MyScreenLifecycleOwner : ScreenDisposable {
     }
 }
 
-//@Single
-//@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-//expect class DriverFactory() {
-//    fun createDriver(): SqlDriver
-//}
+@Single
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+expect class DriverFactory() {
+    fun createDriver(): SqlDriver
+}
 
 internal expect fun openUrl(url: String?)

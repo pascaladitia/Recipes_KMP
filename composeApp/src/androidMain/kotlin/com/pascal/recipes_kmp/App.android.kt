@@ -51,11 +51,11 @@ internal actual fun openUrl(url: String?) {
     AndroidApp.INSTANCE.startActivity(intent)
 }
 
-//@Single
-//@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-//actual class DriverFactory actual constructor() {
-//    private var context: Context = AndroidApp.INSTANCE.applicationContext
-//    actual fun createDriver(): SqlDriver {
-//        return AndroidSqliteDriver(RecipesDatabase.Schema, context, "RecipesDatabase.db")
-//    }
-//}
+@Single
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+actual class DriverFactory actual constructor() {
+    private var context: Context = AndroidApp.INSTANCE.applicationContext
+    actual fun createDriver(): SqlDriver {
+        return AndroidSqliteDriver(RecipesDatabase.Schema, context, "RecipesDatabase.db")
+    }
+}

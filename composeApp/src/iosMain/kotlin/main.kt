@@ -4,7 +4,10 @@ import com.pascal.recipes_kmp.di.appModule
 import org.koin.core.context.startKoin
 import platform.UIKit.UIViewController
 
-fun MainViewController(): UIViewController = ComposeUIViewController { App() }
+fun MainViewController(): UIViewController = ComposeUIViewController {
+    initKoin()
+    App()
+}
 
 fun initKoin(){
     startKoin {

@@ -1,6 +1,8 @@
 package com.pascal.recipes_kmp.di
 
+import com.pascal.recipes_kmp.DriverFactory
 import com.pascal.recipes_kmp.data.repository.Repository
+import com.pascal.recipes_kmp.db.RecipesDatabase
 import com.pascal.recipes_kmp.presentation.screen.category.CategoryViewModel
 import com.pascal.recipes_kmp.presentation.screen.detail.DetailViewModel
 import com.pascal.recipes_kmp.presentation.screen.favorite.FavoriteViewModel
@@ -11,7 +13,7 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val appModule = module {
-//    single { RecipesDatabase(DriverFactory().createDriver()) }
+    single { RecipesDatabase(DriverFactory().createDriver()) }
     single{ Repository() }
     singleOf(::MainViewModel)
     singleOf(::HomeViewModel)
