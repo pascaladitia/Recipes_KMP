@@ -1,4 +1,4 @@
-CREATE TABLE recipesEntity(
+CREATE TABLE RecipesEntity(
  id INTEGER NOT NULL PRIMARY KEY,
  title TEXT NOT NULL,
  videoThumbnail TEXT NOT NULL,
@@ -14,20 +14,20 @@ CREATE TABLE recipesEntity(
 );
 
 getVideoById:
-SELECT * FROM recipesEntity
+SELECT * FROM RecipesEntity
 WHERE id = :id;
 
 getAllVideos:
-SELECT * FROM recipesEntity;
+SELECT * FROM RecipesEntity;
 
 getVideoByTitle:
-SELECT * FROM recipesEntity
+SELECT * FROM RecipesEntity
 WHERE title = :title;
 
 deleteVideoById:
-DELETE FROM recipesEntity
+DELETE FROM RecipesEntity
 WHERE id = :id;
 
 insertVideos:
-INSERT OR REPLACE INTO recipesEntity(id,title,videoThumbnail,videoDesc,isVerified,channelSubs,likes,channelName,channelImage,views,pubDate,duration)
+INSERT OR REPLACE INTO RecipesEntity(id,title,videoThumbnail,videoDesc,isVerified,channelSubs,likes,channelName,channelImage,views,pubDate,duration)
 VALUES (?,?,?,?,?,?,?,?,?,?,?,?);
