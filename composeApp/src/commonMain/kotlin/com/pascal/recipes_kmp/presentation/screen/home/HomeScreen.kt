@@ -65,6 +65,11 @@ import com.pascal.recipes_kmp.utils.generateRandomChar
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.ArrowRight
 import compose.icons.feathericons.BookOpen
+import dev.icerock.moko.permissions.Permission
+import dev.icerock.moko.permissions.PermissionsController
+import dev.icerock.moko.permissions.compose.BindEffect
+import dev.icerock.moko.permissions.compose.PermissionsControllerFactory
+import dev.icerock.moko.permissions.compose.rememberPermissionsControllerFactory
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -92,8 +97,13 @@ class HomeScreen() : Screen {
             value = viewModel.loadCategory()
         }
 
+        val factory: PermissionsControllerFactory = rememberPermissionsControllerFactory()
+        val controller: PermissionsController = remember(factory) { factory.createPermissionsController() }
+        BindEffect(controller)
+
         LaunchedEffect(key1 = true) {
             viewModel.loadListRecipes(generateRandomChar())
+            controller.providePermission(Permission.CAMERA)
         }
 
         Surface(
@@ -113,6 +123,11 @@ class HomeScreen() : Screen {
                     }
                 }
                 is UiState.Empty -> {
+                    coroutineScope.launch {
+                        delay(100)
+                        isContentVisible = true
+                    }
+
                     HomeContent(
                         isEmpty = true,
                         isContentVisible = isContentVisible,

@@ -5,13 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.fragment.app.FragmentActivity
+import androidx.preference.PreferenceManager
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.pascal.recipes_kmp.db.RecipesDatabase
 import com.pascal.recipes_kmp.di.appModule
+import com.russhwolf.settings.Settings
+import com.russhwolf.settings.SharedPreferencesSettings
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.annotation.Single
@@ -33,7 +36,7 @@ class AndroidApp : Application() {
     }
 }
 
-class AppActivity : ComponentActivity() {
+class AppActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -58,4 +61,10 @@ actual class DriverFactory actual constructor() {
     actual fun createDriver(): SqlDriver {
         return AndroidSqliteDriver(RecipesDatabase.Schema, context, "RecipesDatabase.db")
     }
+}
+
+actual fun createSettings(): Settings {
+    val context: Context = AndroidApp.INSTANCE.applicationContext
+    val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+    return SharedPreferencesSettings(preferences)
 }

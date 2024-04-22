@@ -10,6 +10,7 @@ import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.Navigator
 import com.pascal.recipes_kmp.presentation.screen.splash.SplashScreen
 import com.pascal.recipes_kmp.theme.AppTheme
+import com.russhwolf.settings.Settings
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.core.annotation.Single
 
@@ -39,3 +40,5 @@ expect class DriverFactory() {
 }
 
 internal expect fun openUrl(url: String?)
+
+expect fun createSettings(): Settings
