@@ -301,7 +301,8 @@
 					"$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) camera use";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Recipes KMP camera use";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME) photo use";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -335,7 +336,8 @@
 					"$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) camera use";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Recipes KMP camera use";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME) photo use";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
