@@ -1,4 +1,4 @@
-rootProject.name = "Recipes-App-KMP-"
+rootProject.name = "Recipes-KMP"
 include(":composeApp")
 
 pluginManagement {

@@ -5,6 +5,11 @@ import ComposeApp
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
+    override init() {
+       super.init()
+       HelperKt.doInitKoin()
+    }
+
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?

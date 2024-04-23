@@ -13,8 +13,8 @@ import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
-import recipes_app_kmp_.composeapp.generated.resources.Res
-import recipes_app_kmp_.composeapp.generated.resources.no_profile
+import recipes_kmp.composeapp.generated.resources.Res
+import recipes_kmp.composeapp.generated.resources.no_profile
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable

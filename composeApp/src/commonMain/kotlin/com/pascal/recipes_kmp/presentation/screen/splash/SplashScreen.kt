@@ -17,8 +17,8 @@ import com.pascal.recipes_kmp.presentation.screen.bottom.BottomScreen
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
-import recipes_app_kmp_.composeapp.generated.resources.Res
-import recipes_app_kmp_.composeapp.generated.resources.logo
+import recipes_kmp.composeapp.generated.resources.Res
+import recipes_kmp.composeapp.generated.resources.logo
 
 class SplashScreen() : Screen {
     @Composable

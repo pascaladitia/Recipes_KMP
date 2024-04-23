@@ -10,13 +10,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
-import recipes_app_kmp_.composeapp.generated.resources.IndieFlower_Regular
-import recipes_app_kmp_.composeapp.generated.resources.Res
-import recipes_app_kmp_.composeapp.generated.resources.varela_round
+import recipes_kmp.composeapp.generated.resources.IndieFlower_Regular
+import recipes_kmp.composeapp.generated.resources.Res
+import recipes_kmp.composeapp.generated.resources.varela_round
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,

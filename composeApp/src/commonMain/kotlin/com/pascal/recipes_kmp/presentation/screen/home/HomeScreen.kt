@@ -75,13 +75,13 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
-import recipes_app_kmp_.composeapp.generated.resources.Res
-import recipes_app_kmp_.composeapp.generated.resources.category
-import recipes_app_kmp_.composeapp.generated.resources.cookie
-import recipes_app_kmp_.composeapp.generated.resources.empty
-import recipes_app_kmp_.composeapp.generated.resources.food_recipes
-import recipes_app_kmp_.composeapp.generated.resources.just_for_you
-import recipes_app_kmp_.composeapp.generated.resources.no_tags
+import recipes_kmp.composeapp.generated.resources.Res
+import recipes_kmp.composeapp.generated.resources.category
+import recipes_kmp.composeapp.generated.resources.cookie
+import recipes_kmp.composeapp.generated.resources.empty
+import recipes_kmp.composeapp.generated.resources.food_recipes
+import recipes_kmp.composeapp.generated.resources.just_for_you
+import recipes_kmp.composeapp.generated.resources.no_tags
 
 class HomeScreen() : Screen {
     @Composable

@@ -57,6 +57,14 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.voyager.navigator)
+            implementation(libs.kermit)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.moko.mvvm)
+            implementation(libs.ktor.core)
+            implementation(libs.composeIcons.featherIcons)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
             implementation(libs.voyager.tab.navigator)
             implementation(libs.kermit)
@@ -79,10 +87,16 @@ kotlin {
             implementation(libs.multiplatform.settings.serialization)
             implementation(libs.peekaboo.ui)
             implementation(libs.peekaboo.image.picker)
-            implementation(project.dependencies.platform("io.insert-koin:koin-bom:3.5.4"))
-            implementation("io.insert-koin:koin-core")
-            implementation("io.insert-koin:koin-compose")
-            implementation("io.insert-koin:koin-annotations:1.3.1")
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.annotations)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+            implementation(libs.kotlinx.coroutines.test)
         }
 
         androidMain.dependencies {
@@ -92,9 +106,7 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.sqlDelight.driver.android)
             implementation(libs.androidx.preference.ktx)
-            implementation(project.dependencies.platform("io.insert-koin:koin-bom:3.5.1"))
-            implementation("io.insert-koin:koin-core")
-            implementation("io.insert-koin:koin-android")
+            implementation(libs.koin.android)
         }
 
         iosMain.dependencies {
@@ -102,12 +114,6 @@ kotlin {
             implementation(libs.sqlDelight.driver.native)
         }
 
-        commonTest.dependencies {
-            implementation(kotlin("test"))
-            @OptIn(ExperimentalComposeLibrary::class)
-            implementation(compose.uiTest)
-            implementation(libs.kotlinx.coroutines.test)
-        }
     }
 }
 

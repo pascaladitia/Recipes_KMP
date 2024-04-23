@@ -18,8 +18,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
-import recipes_app_kmp_.composeapp.generated.resources.Res
-import recipes_app_kmp_.composeapp.generated.resources.logo
+import recipes_kmp.composeapp.generated.resources.Res
+import recipes_kmp.composeapp.generated.resources.logo
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable

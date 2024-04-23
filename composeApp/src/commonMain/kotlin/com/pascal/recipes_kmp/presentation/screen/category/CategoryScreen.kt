@@ -45,9 +45,9 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import com.pascal.recipes_kmp.presentation.component.LoadingScreen
-import recipes_app_kmp_.composeapp.generated.resources.Res
-import recipes_app_kmp_.composeapp.generated.resources.empty
-import recipes_app_kmp_.composeapp.generated.resources.food_recipes
+import recipes_kmp.composeapp.generated.resources.Res
+import recipes_kmp.composeapp.generated.resources.empty
+import recipes_kmp.composeapp.generated.resources.food_recipes
 
 class CategoryScreen(val query: String) : Screen {
     @OptIn(ExperimentalResourceApi::class)
