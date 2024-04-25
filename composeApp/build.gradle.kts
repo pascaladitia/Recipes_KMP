@@ -1,6 +1,7 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
+
 import com.android.build.api.dsl.ManagedVirtualDevice
 import com.codingfeline.buildkonfig.compiler.FieldSpec
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
@@ -56,15 +57,6 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.voyager.navigator)
-            implementation(libs.kermit)
-            implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.moko.mvvm)
-            implementation(libs.ktor.core)
-            implementation(libs.composeIcons.featherIcons)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.datetime)
-            implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
             implementation(libs.voyager.tab.navigator)
             implementation(libs.kermit)

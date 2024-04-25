@@ -55,12 +55,14 @@ import com.pascal.recipes_kmp.domain.model.CategoriesItem
 import com.pascal.recipes_kmp.domain.model.CategoryResponse
 import com.pascal.recipes_kmp.domain.model.MealsItem
 import com.pascal.recipes_kmp.domain.usecases.UiState
+import com.pascal.recipes_kmp.openUrl
 import com.pascal.recipes_kmp.presentation.component.ErrorScreen
 import com.pascal.recipes_kmp.presentation.component.IconCircleBorder
 import com.pascal.recipes_kmp.presentation.component.NetworkImage
 import com.pascal.recipes_kmp.presentation.component.Search
 import com.pascal.recipes_kmp.presentation.component.ShimmerAnimation
 import com.pascal.recipes_kmp.presentation.screen.category.CategoryScreen
+import com.pascal.recipes_kmp.presentation.screen.detail.DetailScreen
 import com.pascal.recipes_kmp.utils.generateRandomChar
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.ArrowRight
@@ -136,7 +138,9 @@ class HomeScreen() : Screen {
                         onCategoryClick = { query ->
                             navigator?.push(CategoryScreen(query))
                         },
-                        onDetailClick = {},
+                        onDetailClick = { query ->
+                            navigator?.push(DetailScreen(query))
+                        },
                         onSearch = { query ->
                             coroutineScope.launch {
                                 viewModel.loadSearchRecipes(query)
@@ -165,8 +169,8 @@ class HomeScreen() : Screen {
                         onDetailClick = { query ->
                             coroutineScope.launch {
                                 isContentVisible = false
-                                delay(500)
-//                                onDetailClick(query)
+                                delay(100)
+                                navigator?.push(DetailScreen(query))
                             }
                         },
                         onSearch = { query ->
@@ -444,7 +448,7 @@ fun RecipesItem(
                 }
                 Spacer(modifier = Modifier.width(8.dp))
                 IconCircleBorder(imageVector = Icons.Outlined.PlayArrow) {
-//                    intentActionView(context, item.strYoutube.toString())
+                    openUrl(item.strYoutube.toString())
                 }
             }
         }

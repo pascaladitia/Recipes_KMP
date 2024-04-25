@@ -40,11 +40,12 @@ import com.pascal.recipes_kmp.domain.model.FilterCategoryItem
 import com.pascal.recipes_kmp.domain.usecases.UiState
 import com.pascal.recipes_kmp.presentation.component.ErrorScreen
 import com.pascal.recipes_kmp.presentation.component.IconCircleBorder
+import com.pascal.recipes_kmp.presentation.component.LoadingScreen
 import com.pascal.recipes_kmp.presentation.component.NetworkImage
+import com.pascal.recipes_kmp.presentation.screen.detail.DetailScreen
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
-import com.pascal.recipes_kmp.presentation.component.LoadingScreen
 import recipes_kmp.composeapp.generated.resources.Res
 import recipes_kmp.composeapp.generated.resources.empty
 import recipes_kmp.composeapp.generated.resources.food_recipes
@@ -83,10 +84,9 @@ class CategoryScreen(val query: String) : Screen {
                     val data = (uiState as UiState.Success).data
                     CategoryContent(
                         query = query,
-                        listCategory = data?.meals,
-                        onDetailClick = {
-//                            onDetailClick(it)
-                        },
+                        listCategory = data.meals,
+                        onDetailClick = { query ->
+                            navigator?.push(DetailScreen(query))                        },
                         onNavBack = {
                             navigator?.pop()
                         }
