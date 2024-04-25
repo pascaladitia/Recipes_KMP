@@ -5,9 +5,9 @@
         android:name="android.hardware.camera"
         android:required="false" />
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name=".AndroidApp"
         android:icon="@android:drawable/ic_menu_compass"
         android:label="Recipes KMP"
         android:theme="@android:style/Theme.Material.NoActionBar">

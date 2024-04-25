@@ -92,10 +92,12 @@ class ProfileScreen() : Screen {
                         is UiState.Loading -> {
                             LoadingScreen()
                         }
+
                         is UiState.Error -> {
                             val message = state.message
                             ErrorScreen(message = message) {}
                         }
+
                         is UiState.Empty -> {
                             ProfileEditContent(
                                 itemProfile = null,
@@ -112,6 +114,7 @@ class ProfileScreen() : Screen {
                                 }
                             )
                         }
+
                         is UiState.Success -> {
                             val data = state.data
                             if (editMode) {
@@ -155,8 +158,16 @@ fun ProfileContent(
     var email by remember { mutableStateOf(itemProfile.email) }
     var phone by remember { mutableStateOf(itemProfile.phone) }
     var address by remember { mutableStateOf(itemProfile.address) }
-    var imageByteArray by remember { mutableStateOf<ByteArray?>((itemProfile.imagePath?.toByteArray())) }
-    var imageProfileByteArray by remember { mutableStateOf<ByteArray?>(itemProfile.imageProfilePath?.toByteArray()) }
+    var imageByteArray by remember {
+        mutableStateOf<ByteArray?>(
+            if (itemProfile.imagePath.isNullOrEmpty()) null else itemProfile.imagePath.toByteArray()
+        )
+    }
+    var imageProfileByteArray by remember {
+        mutableStateOf<ByteArray?>(
+            if (itemProfile.imageProfilePath.isNullOrEmpty()) null else itemProfile.imageProfilePath.toByteArray()
+        )
+    }
 
     ConstraintLayout(
         modifier = modifier.fillMaxSize()
@@ -247,7 +258,7 @@ fun ProfileContent(
                 }
         ) {
             OutlinedTextField(
-                value = itemProfile.name.toString(),
+                value = itemProfile.name ?: "-",
                 onValueChange = { name = it },
                 label = { Text("Name") },
                 modifier = Modifier.fillMaxWidth(),
@@ -257,7 +268,7 @@ fun ProfileContent(
             Spacer(modifier = Modifier.height(24.dp))
 
             OutlinedTextField(
-                value = itemProfile.email.toString(),
+                value = itemProfile.email ?: "-",
                 onValueChange = { email = it },
                 label = { Text("Email") },
                 modifier = Modifier.fillMaxWidth(),
@@ -267,7 +278,7 @@ fun ProfileContent(
             Spacer(modifier = Modifier.height(24.dp))
 
             OutlinedTextField(
-                value =itemProfile.phone.toString(),
+                value = itemProfile.phone ?: "-",
                 onValueChange = { phone = it },
                 label = { Text("Phone") },
                 modifier = Modifier.fillMaxWidth(),
@@ -287,7 +298,7 @@ fun ProfileContent(
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(text = "Address: $address")
+                Text(text = "Address: ${address ?: "-"}")
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -318,8 +329,16 @@ fun ProfileEditContent(
     var showCaptureImage by remember { mutableStateOf(false) }
     var showimageProfile by remember { mutableStateOf(false) }
 
-    var imageByteArray by remember { mutableStateOf<ByteArray?>(itemProfile?.imagePath?.toByteArray()) }
-    var imageProfileByteArray by remember { mutableStateOf<ByteArray?>(itemProfile?.imageProfilePath?.toByteArray()) }
+    var imageByteArray by remember {
+        mutableStateOf<ByteArray?>(
+            if (itemProfile?.imagePath.isNullOrEmpty()) null else itemProfile?.imagePath?.toByteArray()
+        )
+    }
+    var imageProfileByteArray by remember {
+        mutableStateOf<ByteArray?>(
+            if (itemProfile?.imageProfilePath.isNullOrEmpty()) null else itemProfile?.imageProfilePath?.toByteArray()
+        )
+    }
 
     ConstraintLayout(
         modifier = modifier.fillMaxSize()
@@ -348,7 +367,7 @@ fun ProfileEditContent(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { showimageProfile = true }
+                    .clickable { showCaptureImage = true }
                     .height(200.dp)
                     .constrainAs(image) {
                         top.linkTo(parent.top)
@@ -380,7 +399,7 @@ fun ProfileEditContent(
                 modifier = Modifier
                     .border(6.dp, Color.White, CircleShape)
                     .clip(CircleShape)
-                    .clickable { showCaptureImage = true }
+                    .clickable { showimageProfile = true }
                     .size(150.dp)
                     .background(MaterialTheme.colorScheme.background, CircleShape)
                     .constrainAs(imageProfile) {
@@ -414,7 +433,7 @@ fun ProfileEditContent(
                 }
         ) {
             OutlinedTextField(
-                value = name.toString(),
+                value = name ?: "-",
                 onValueChange = { name = it },
                 label = { Text("Name") },
                 modifier = Modifier.fillMaxWidth(),
@@ -423,7 +442,7 @@ fun ProfileEditContent(
             Spacer(modifier = Modifier.height(24.dp))
 
             OutlinedTextField(
-                value = email.toString(),
+                value = email ?: "-",
                 onValueChange = { email = it },
                 label = { Text("Email") },
                 modifier = Modifier.fillMaxWidth(),
@@ -432,7 +451,7 @@ fun ProfileEditContent(
             Spacer(modifier = Modifier.height(24.dp))
 
             OutlinedTextField(
-                value = phone.toString(),
+                value = phone ?: "-",
                 onValueChange = { phone = it },
                 label = { Text("Phone") },
                 modifier = Modifier.fillMaxWidth(),
@@ -463,8 +482,8 @@ fun ProfileEditContent(
                     val profile = ProfileEntity(
                         id = 1,
                         name = name,
-                        imagePath = imageByteArray.toString(),
-                        imageProfilePath = imageProfileByteArray.toString(),
+                        imagePath = if (imageByteArray != null) imageByteArray.toString() else null,
+                        imageProfilePath = if (imageProfileByteArray != null) imageProfileByteArray.toString() else null,
                         email = email,
                         phone = phone,
                         address = address
@@ -490,7 +509,7 @@ fun ProfileEditContent(
         CameraGalleryDialog(
             showDialogCapture = showimageProfile,
             onSelect = { byteArray ->
-                imageByteArray = byteArray
+                imageProfileByteArray = byteArray
                 showimageProfile = false
             },
             onDismiss = {
