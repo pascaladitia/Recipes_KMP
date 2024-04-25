@@ -18,8 +18,7 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "${JavaVersion.VERSION_1_8}"
-                freeCompilerArgs += "-Xjdk-release=${JavaVersion.VERSION_1_8}"
+                jvmTarget = "17"
             }
         }
         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
@@ -57,9 +56,13 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
+            implementation(libs.constraintlayout.compose.multiplatform)
+            implementation(libs.kermit)
+            implementation(libs.kamel.image)
+            implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
             implementation(libs.voyager.tab.navigator)
-            implementation(libs.kermit)
             implementation(libs.moko.mvvm)
             implementation(libs.moko.permission)
             implementation(libs.ktor.core)
@@ -71,7 +74,6 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.datetime)
-            implementation(libs.kamel.image)
             implementation(libs.sqlDelight.extension)
             implementation(libs.paging.compose.common)
             implementation(libs.paging.common)
@@ -139,8 +141,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true

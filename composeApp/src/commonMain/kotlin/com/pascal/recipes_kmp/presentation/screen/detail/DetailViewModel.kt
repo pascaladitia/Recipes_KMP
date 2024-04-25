@@ -25,7 +25,7 @@ class DetailViewModel(
     suspend fun loadDetailRecipes(query: String) {
         try {
             val recipe = repository.getDetailRecipe(query).meals?.firstOrNull()
-            val isFavorite = local.getAllFavorites().find { it.id == query.toLongOrNull() }
+            val isFavorite = local.getAllFavorites().find { it.id == recipe?.idMeal?.toLongOrNull() }
 
             val listIngredient = mutableListOf<IngredientMapping>()
             addIngredientIfNotNull(listIngredient, recipe?.strIngredient1, recipe?.strMeasure1)

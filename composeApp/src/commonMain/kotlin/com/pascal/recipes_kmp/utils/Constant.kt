@@ -1,8 +1,8 @@
 package com.pascal.recipes_kmp.utils
 
 object Constant {
-    const val BASE_URL_DEV = "https://dev.api.hr.jari.co.id/api"
-    const val BASE_URL_PROD = "https://api.hr.jari.co.id/api"
+    const val QUERY = "query"
+    const val HIDE_DIALOG = 0
 
     const val TIMEOUT = 300000L
     const val AUTHORIZATION = "Authorization"

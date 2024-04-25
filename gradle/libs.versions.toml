@@ -6,6 +6,8 @@ compose = "1.6.1"
 agp = "8.2.2"
 androidx-activityCompose = "1.8.2"
 androidx-uiTest = "1.6.4"
+
+constraintlayoutComposeMultiplatform = "0.3.1"
 voyager = "1.0.0"
 kermit = "2.0.3"
 buildKonfig = "0.15.1"
@@ -32,6 +34,8 @@ pagingComposeCommon = "3.3.0-alpha02-0.4.0"
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-testManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-uiTest" }
 androidx-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-uiTest" }
+
+constraintlayout-compose-multiplatform = { module = "tech.annexflow.compose:constraintlayout-compose-multiplatform", version.ref = "constraintlayoutComposeMultiplatform" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }

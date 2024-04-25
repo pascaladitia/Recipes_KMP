@@ -1,38 +1,38 @@
 package com.pascal.recipes_kmp.presentation.screen.profile
 
-import com.pascal.recipes_kmp.data.repository.Repository
-import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import com.pascal.recipes_kmp.domain.model.dashboard.ResponseDashboard
+import com.pascal.recipes_kmp.data.local.LocalRepository
 import com.pascal.recipes_kmp.domain.usecases.UiState
+import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import sqldelight.db.ProfileEntity
 
 @KoinViewModel
 class ProfileViewModel(
-    private val repository: Repository
+    private val local: LocalRepository
 ) : ViewModel() {
 
-    private val _dashboard = MutableStateFlow<UiState<ResponseDashboard>>(UiState.Loading)
-    val dashboard: StateFlow<UiState<ResponseDashboard>> = _dashboard.asStateFlow()
+    private val _profile = MutableStateFlow<UiState<ProfileEntity>>(UiState.Loading)
+    val profile: StateFlow<UiState<ProfileEntity>> = _profile.asStateFlow()
 
-    fun loadDashboard() {
+    suspend fun loadProfile() {
         viewModelScope.launch {
-            _dashboard.value = UiState.Loading
-            try {
-                val response = repository.dashboard()
-                if (response.code == 200) {
-                    _dashboard.value = UiState.Success(response)
+            _profile.value = UiState.Loading
+            val result = local.getProfileById(1)
+                if (result == null) {
+                    _profile.value = UiState.Empty
                 } else {
-                    _dashboard.value = UiState.Error(response.message.toString())
+                    _profile.value = UiState.Success(result)
                 }
-            } catch (e: Exception) {
-                val error = e.message.toString()
-                _dashboard.value = UiState.Error(error)
-            }
+        }
+    }
 
+    fun addProfile(item: ProfileEntity) {
+        viewModelScope.launch {
+            local.insertProfile(item)
         }
     }
 }
