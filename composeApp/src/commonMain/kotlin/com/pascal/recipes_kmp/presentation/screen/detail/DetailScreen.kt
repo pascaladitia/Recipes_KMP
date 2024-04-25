@@ -24,7 +24,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.PlayArrow
@@ -59,6 +58,7 @@ import com.pascal.recipes_kmp.presentation.component.LoadingScreen
 import com.pascal.recipes_kmp.presentation.component.NetworkImage
 import com.pascal.recipes_kmp.presentation.screen.detail.tabs.ContentDetailWithTabs
 import compose.icons.FeatherIcons
+import compose.icons.feathericons.ArrowLeft
 import compose.icons.feathericons.BookOpen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -71,6 +71,7 @@ import recipes_kmp.composeapp.generated.resources.empty
 import recipes_kmp.composeapp.generated.resources.food_recipes
 import recipes_kmp.composeapp.generated.resources.id_recipe
 import recipes_kmp.composeapp.generated.resources.no_tags
+import sqldelight.db.FavoriteEntity
 
 class DetailScreen(val query: String) : Screen {
     @Composable
@@ -156,7 +157,7 @@ fun DetailContent(
                 IconCircleBorder(
                     size = 42.dp,
                     padding = 6.dp,
-                    imageVector = Icons.Outlined.ArrowBack
+                    imageVector = FeatherIcons.ArrowLeft
                 ) {
                     onNavBack()
                 }
@@ -175,7 +176,15 @@ fun DetailContent(
                     favBtnClicked = !favBtnClicked
 
                     viewModel?.updateFavorite(
-                        favBtnClicked
+                        favBtnClicked,
+                        FavoriteEntity(
+                            item?.idMeal?.toLongOrNull() ?: 0L,
+                            item?.strMeal,
+                            item?.strMealThumb,
+                            item?.strCategory,
+                            item?.strTags,
+                            item?.strYoutube
+                        )
                     )
                 }
             }

@@ -1,38 +1,32 @@
 package com.pascal.recipes_kmp.presentation.screen.favorite
 
-import com.pascal.recipes_kmp.data.repository.Repository
-import dev.icerock.moko.mvvm.viewmodel.ViewModel
-import com.pascal.recipes_kmp.domain.model.dashboard.ResponseDashboard
+import com.pascal.recipes_kmp.data.local.LocalRepository
 import com.pascal.recipes_kmp.domain.usecases.UiState
+import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import sqldelight.db.FavoriteEntity
 
 @KoinViewModel
 class FavoriteViewModel(
-    private val repository: Repository
+    private val localRepository: LocalRepository
 ) : ViewModel() {
 
-    private val _dashboard = MutableStateFlow<UiState<ResponseDashboard>>(UiState.Loading)
-    val dashboard: StateFlow<UiState<ResponseDashboard>> = _dashboard.asStateFlow()
+    private val _favorite = MutableStateFlow<UiState<List<FavoriteEntity>?>>(UiState.Loading)
+    val favorite: StateFlow<UiState<List<FavoriteEntity>?>> = _favorite.asStateFlow()
 
-    fun loadDashboard() {
+    fun loadListFavorite() {
         viewModelScope.launch {
-            _dashboard.value = UiState.Loading
-            try {
-                val response = repository.dashboard()
-                if (response.code == 200) {
-                    _dashboard.value = UiState.Success(response)
-                } else {
-                    _dashboard.value = UiState.Error(response.message.toString())
-                }
-            } catch (e: Exception) {
-                val error = e.message.toString()
-                _dashboard.value = UiState.Error(error)
+            _favorite.value = UiState.Loading
+            val result = localRepository.getAllFavorites()
+            if (result.isEmpty()) {
+                _favorite.value = UiState.Empty
+            } else {
+                _favorite.value = UiState.Success(result)
             }
-
         }
     }
 }

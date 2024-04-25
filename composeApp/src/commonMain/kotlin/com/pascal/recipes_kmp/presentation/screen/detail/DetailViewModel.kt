@@ -1,5 +1,6 @@
 package com.pascal.recipes_kmp.presentation.screen.detail
 
+import com.pascal.recipes_kmp.data.local.LocalRepository
 import com.pascal.recipes_kmp.data.repository.Repository
 import com.pascal.recipes_kmp.domain.model.DetailRecipesMapping
 import com.pascal.recipes_kmp.domain.model.IngredientMapping
@@ -8,12 +9,15 @@ import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import sqldelight.db.FavoriteEntity
 
 @KoinViewModel
 class DetailViewModel(
-    private val repository: Repository
-) : ViewModel() {
+    private val repository: Repository,
+    private val local: LocalRepository,
+    ) : ViewModel() {
 
     private val _detailRecipes = MutableStateFlow<UiState<DetailRecipesMapping?>>(UiState.Loading)
     val detailRecipes: StateFlow<UiState<DetailRecipesMapping?>> = _detailRecipes.asStateFlow()
@@ -21,7 +25,7 @@ class DetailViewModel(
     suspend fun loadDetailRecipes(query: String) {
         try {
             val recipe = repository.getDetailRecipe(query).meals?.firstOrNull()
-            val isFavorite = false
+            val isFavorite = local.getAllFavorites().find { it.id == query.toLongOrNull() }
 
             val listIngredient = mutableListOf<IngredientMapping>()
             addIngredientIfNotNull(listIngredient, recipe?.strIngredient1, recipe?.strMeasure1)
@@ -49,17 +53,17 @@ class DetailViewModel(
                 strImageSource = recipe?.strImageSource,
                 strCategory = recipe?.strCategory,
                 strArea = recipe?.strArea,
-                strCreativeCommonsConfirmed = recipe?.strCreativeCommonsConfirmed?.toString(),
+                strCreativeCommonsConfirmed = recipe?.strCreativeCommonsConfirmed,
                 strTags = recipe?.strTags,
                 idMeal = recipe?.idMeal,
                 strInstructions = recipe?.strInstructions,
                 strMealThumb = recipe?.strMealThumb,
                 strYoutube = recipe?.strYoutube,
                 strMeal = recipe?.strMeal,
-                dateModified = recipe?.dateModified?.toString(),
-                strDrinkAlternate = recipe?.strDrinkAlternate?.toString(),
+                dateModified = recipe?.dateModified,
+                strDrinkAlternate = recipe?.strDrinkAlternate,
                 strSource = recipe?.strSource,
-                isFavorite = isFavorite,
+                isFavorite = isFavorite != null,
                 listIngredient = listIngredient
             )
 
@@ -69,8 +73,11 @@ class DetailViewModel(
         }
     }
 
-    fun updateFavorite(favChecked: Boolean) {
-
+    fun updateFavorite(favChecked: Boolean, item: FavoriteEntity) {
+        viewModelScope.launch {
+            if (favChecked) local.insertFavorite(item)
+            else local.deleteFavoriteById(item.id)
+        }
     }
 
     private fun addIngredientIfNotNull(

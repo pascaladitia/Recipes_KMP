@@ -1,6 +1,7 @@
 package com.pascal.recipes_kmp.di
 
 import com.pascal.recipes_kmp.DriverFactory
+import com.pascal.recipes_kmp.data.local.LocalRepository
 import com.pascal.recipes_kmp.data.repository.Repository
 import com.pascal.recipes_kmp.db.RecipesDatabase
 import com.pascal.recipes_kmp.presentation.screen.category.CategoryViewModel
@@ -14,6 +15,7 @@ import org.koin.dsl.module
 
 val appModule = module {
     single { RecipesDatabase(DriverFactory().createDriver()) }
+    single{ LocalRepository(get()) }
     single{ Repository() }
     singleOf(::MainViewModel)
     singleOf(::HomeViewModel)

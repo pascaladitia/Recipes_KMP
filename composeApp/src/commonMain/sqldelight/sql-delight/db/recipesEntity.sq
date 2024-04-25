@@ -1,33 +1,23 @@
-CREATE TABLE RecipesEntity(
+CREATE TABLE FavoriteEntity(
  id INTEGER NOT NULL PRIMARY KEY,
- title TEXT NOT NULL,
- videoThumbnail TEXT NOT NULL,
- videoDesc TEXT NOT NULL ,
- isVerified INTEGER  NOT NULL,
- channelSubs TEXT NOT NULL,
- likes TEXT NOT NULL ,
- channelName TEXT NOT NULL,
- channelImage TEXT NOT NULL,
- views TEXT NOT NULL,
- pubDate TEXT NOT NULL,
- duration TEXT NOT NULL
+ name TEXT,
+ imagePath TEXT,
+ category TEXT,
+ tags TEXT,
+ youtube_url TEXT
 );
 
-getVideoById:
-SELECT * FROM RecipesEntity
+getFavoriteById:
+SELECT * FROM FavoriteEntity
 WHERE id = :id;
 
-getAllVideos:
-SELECT * FROM RecipesEntity;
+getAllFavorites:
+SELECT * FROM FavoriteEntity;
 
-getVideoByTitle:
-SELECT * FROM RecipesEntity
-WHERE title = :title;
-
-deleteVideoById:
-DELETE FROM RecipesEntity
+deleteFavoriteById:
+DELETE FROM FavoriteEntity
 WHERE id = :id;
 
-insertVideos:
-INSERT OR REPLACE INTO RecipesEntity(id,title,videoThumbnail,videoDesc,isVerified,channelSubs,likes,channelName,channelImage,views,pubDate,duration)
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?);
+insertFavorites:
+INSERT OR REPLACE INTO FavoriteEntity(id, name, imagePath, category, tags, youtube_url)
+VALUES (?,?,?,?,?,?);
