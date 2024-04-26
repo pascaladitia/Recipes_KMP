@@ -1,5 +1,7 @@
 # Compose Multiplatform Application
 
+<img width="918" alt="image" src="https://github.com/pascaladitia/Recipes_KMP/assets/62379388/cdd56eca-58d8-40c5-97e0-450706fd0f0f">
+
 ## Before running!
  - check your system with [KDoctor](https://github.com/Kotlin/kdoctor)
  - install JDK 17 or higher on your machine
