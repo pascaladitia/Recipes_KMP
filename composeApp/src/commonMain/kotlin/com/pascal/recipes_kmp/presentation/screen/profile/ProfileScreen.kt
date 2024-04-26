@@ -53,9 +53,9 @@ import com.pascal.recipes_kmp.domain.usecases.UiState
 import com.pascal.recipes_kmp.presentation.component.CameraGalleryDialog
 import com.pascal.recipes_kmp.presentation.component.ErrorScreen
 import com.pascal.recipes_kmp.presentation.component.LoadingScreen
+import com.pascal.recipes_kmp.utils.Base64.decodeFromBase64
+import com.pascal.recipes_kmp.utils.Base64.encodeToBase64
 import com.preat.peekaboo.image.picker.toImageBitmap
-import io.ktor.util.decodeBase64Bytes
-import io.ktor.utils.io.core.toByteArray
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
@@ -161,12 +161,12 @@ fun ProfileContent(
     var address by remember { mutableStateOf(itemProfile?.address ?: "-") }
     var imageByteArray by remember {
         mutableStateOf<ByteArray?>(
-            if (itemProfile?.imagePath.isNullOrEmpty()) null else itemProfile?.imagePath?.toByteArray()
+            if (itemProfile?.imagePath.isNullOrEmpty()) null else itemProfile?.imagePath?.decodeFromBase64()
         )
     }
     var imageProfileByteArray by remember {
         mutableStateOf<ByteArray?>(
-            if (itemProfile?.imageProfilePath.isNullOrEmpty()) null else itemProfile?.imageProfilePath?.toByteArray()
+            if (itemProfile?.imageProfilePath.isNullOrEmpty()) null else itemProfile?.imageProfilePath?.decodeFromBase64()
         )
     }
 
@@ -332,12 +332,12 @@ fun ProfileEditContent(
 
     var imageByteArray by remember {
         mutableStateOf<ByteArray?>(
-            if (itemProfile?.imagePath.isNullOrEmpty()) null else itemProfile?.imagePath?.decodeBase64Bytes()
+            if (itemProfile?.imagePath.isNullOrEmpty()) null else itemProfile?.imagePath?.decodeFromBase64()
         )
     }
     var imageProfileByteArray by remember {
         mutableStateOf<ByteArray?>(
-            if (itemProfile?.imageProfilePath.isNullOrEmpty()) null else itemProfile?.imageProfilePath?.decodeBase64Bytes()
+            if (itemProfile?.imageProfilePath.isNullOrEmpty()) null else itemProfile?.imageProfilePath?.decodeFromBase64()
         )
     }
 
@@ -483,8 +483,8 @@ fun ProfileEditContent(
                     val profile = ProfileEntity(
                         id = 1,
                         name = name,
-                        imagePath = if (imageByteArray != null) imageByteArray!!.decodeToString() else null,
-                        imageProfilePath = if (imageProfileByteArray != null) imageProfileByteArray!!.decodeToString() else null,
+                        imagePath = if (imageByteArray != null) imageByteArray!!.encodeToBase64() else null,
+                        imageProfilePath = if (imageProfileByteArray != null) imageProfileByteArray!!.encodeToBase64() else null,
                         email = email,
                         phone = phone,
                         address = address
