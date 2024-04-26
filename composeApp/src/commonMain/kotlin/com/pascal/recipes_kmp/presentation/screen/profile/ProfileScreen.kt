@@ -54,6 +54,7 @@ import com.pascal.recipes_kmp.presentation.component.CameraGalleryDialog
 import com.pascal.recipes_kmp.presentation.component.ErrorScreen
 import com.pascal.recipes_kmp.presentation.component.LoadingScreen
 import com.preat.peekaboo.image.picker.toImageBitmap
+import io.ktor.util.decodeBase64Bytes
 import io.ktor.utils.io.core.toByteArray
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -151,21 +152,21 @@ class ProfileScreen() : Screen {
 @Composable
 fun ProfileContent(
     modifier: Modifier = Modifier,
-    itemProfile: ProfileEntity,
+    itemProfile: ProfileEntity?,
     onEdit: () -> Unit,
 ) {
-    var name by remember { mutableStateOf(itemProfile.name) }
-    var email by remember { mutableStateOf(itemProfile.email) }
-    var phone by remember { mutableStateOf(itemProfile.phone) }
-    var address by remember { mutableStateOf(itemProfile.address) }
+    var name by remember { mutableStateOf(itemProfile?.name) }
+    var email by remember { mutableStateOf(itemProfile?.email) }
+    var phone by remember { mutableStateOf(itemProfile?.phone) }
+    var address by remember { mutableStateOf(itemProfile?.address ?: "-") }
     var imageByteArray by remember {
         mutableStateOf<ByteArray?>(
-            if (itemProfile.imagePath.isNullOrEmpty()) null else itemProfile.imagePath.toByteArray()
+            if (itemProfile?.imagePath.isNullOrEmpty()) null else itemProfile?.imagePath?.toByteArray()
         )
     }
     var imageProfileByteArray by remember {
         mutableStateOf<ByteArray?>(
-            if (itemProfile.imageProfilePath.isNullOrEmpty()) null else itemProfile.imageProfilePath.toByteArray()
+            if (itemProfile?.imageProfilePath.isNullOrEmpty()) null else itemProfile?.imageProfilePath?.toByteArray()
         )
     }
 
@@ -258,7 +259,7 @@ fun ProfileContent(
                 }
         ) {
             OutlinedTextField(
-                value = itemProfile.name ?: "-",
+                value = itemProfile?.name ?: "",
                 onValueChange = { name = it },
                 label = { Text("Name") },
                 modifier = Modifier.fillMaxWidth(),
@@ -268,7 +269,7 @@ fun ProfileContent(
             Spacer(modifier = Modifier.height(24.dp))
 
             OutlinedTextField(
-                value = itemProfile.email ?: "-",
+                value = itemProfile?.email ?: "",
                 onValueChange = { email = it },
                 label = { Text("Email") },
                 modifier = Modifier.fillMaxWidth(),
@@ -278,7 +279,7 @@ fun ProfileContent(
             Spacer(modifier = Modifier.height(24.dp))
 
             OutlinedTextField(
-                value = itemProfile.phone ?: "-",
+                value = itemProfile?.phone ?: "",
                 onValueChange = { phone = it },
                 label = { Text("Phone") },
                 modifier = Modifier.fillMaxWidth(),
@@ -298,7 +299,7 @@ fun ProfileContent(
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(text = "Address: ${address ?: "-"}")
+                Text(text = "Address: $address")
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -331,12 +332,12 @@ fun ProfileEditContent(
 
     var imageByteArray by remember {
         mutableStateOf<ByteArray?>(
-            if (itemProfile?.imagePath.isNullOrEmpty()) null else itemProfile?.imagePath?.toByteArray()
+            if (itemProfile?.imagePath.isNullOrEmpty()) null else itemProfile?.imagePath?.decodeBase64Bytes()
         )
     }
     var imageProfileByteArray by remember {
         mutableStateOf<ByteArray?>(
-            if (itemProfile?.imageProfilePath.isNullOrEmpty()) null else itemProfile?.imageProfilePath?.toByteArray()
+            if (itemProfile?.imageProfilePath.isNullOrEmpty()) null else itemProfile?.imageProfilePath?.decodeBase64Bytes()
         )
     }
 
@@ -482,8 +483,8 @@ fun ProfileEditContent(
                     val profile = ProfileEntity(
                         id = 1,
                         name = name,
-                        imagePath = if (imageByteArray != null) imageByteArray.toString() else null,
-                        imageProfilePath = if (imageProfileByteArray != null) imageProfileByteArray.toString() else null,
+                        imagePath = if (imageByteArray != null) imageByteArray!!.decodeToString() else null,
+                        imageProfilePath = if (imageProfileByteArray != null) imageProfileByteArray!!.decodeToString() else null,
                         email = email,
                         phone = phone,
                         address = address

@@ -10,18 +10,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,13 +26,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.preat.peekaboo.image.picker.ResizeOptions
 import com.preat.peekaboo.image.picker.SelectionMode
 import com.preat.peekaboo.image.picker.rememberImagePickerLauncher
-import com.preat.peekaboo.ui.camera.PeekabooCamera
-import com.preat.peekaboo.ui.camera.rememberPeekabooCameraState
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Camera
 import compose.icons.feathericons.File
@@ -53,8 +44,16 @@ fun CameraGalleryDialog(
 ) {
     var showCamera by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
+
+    val resizeOptions = ResizeOptions(
+        width = 1000, // Custom width
+        height = 1000, // Custom height
+        resizeThresholdBytes = 1 * 512 * 512L, // Custom threshold for 2MB,
+        compressionQuality = 1.0 // Adjust compression quality (0.0 to 1.0)
+    )
     val galleryLauncher = rememberImagePickerLauncher(
         selectionMode = SelectionMode.Single,
+        resizeOptions = resizeOptions,
         scope = scope,
         onResult = { byteArrays ->
             byteArrays.firstOrNull()?.let {
@@ -62,29 +61,22 @@ fun CameraGalleryDialog(
             }
         }
     )
-    val cameraLauncher = rememberPeekabooCameraState(onCapture = {
-        showCamera = false
-        onSelect(it)
-    })
 
     if (showCamera) {
         Box {
-            PeekabooCamera(
-                state = cameraLauncher,
+            PeekabooCameraView(
                 modifier = Modifier.fillMaxSize(),
-                permissionDeniedContent = {
-
-                },
-            )
-            CameraOverlay(
-                isCapturing = cameraLauncher.isCapturing,
                 onBack = {
                     showCamera = false
                     onDismiss()
                 },
-                onCapture = { cameraLauncher.capture() },
-                onConvert = { cameraLauncher.toggleCamera() },
-                modifier = Modifier.fillMaxSize(),
+                onCapture = { byteArray ->
+                    byteArray?.let {
+                        showCamera = false
+                        onSelect(it)
+                    }
+                    showCamera = false
+                },
             )
         }
     }
@@ -157,58 +149,6 @@ fun CameraGalleryDialog(
         )
     }
 
-}
-
-@Composable
-private fun CameraOverlay(
-    isCapturing: Boolean,
-    onCapture: () -> Unit,
-    onConvert: () -> Unit,
-    onBack: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier,
-    ) {
-        IconButton(
-            onClick = { onBack() },
-            modifier = Modifier.align(Alignment.TopStart)
-                .padding(top = 48.dp, start = 16.dp),
-        ) {
-            Icon(
-                imageVector = Icons.Default.Close,
-                contentDescription = "Back Button",
-                tint = Color.White,
-            )
-        }
-        if (isCapturing) {
-            CircularProgressIndicator(
-                modifier =
-                Modifier
-                    .size(80.dp)
-                    .align(Alignment.Center),
-                color = Color.White.copy(alpha = 0.7f),
-                strokeWidth = 8.dp,
-            )
-        }
-        Icon(
-            imageVector = Icons.Default.Refresh,
-            contentDescription = "Back Chanched",
-            tint = Color.White.copy(alpha = 0.7f),
-            modifier = Modifier.align(Alignment.BottomEnd)
-                .clickable { onConvert() }
-                .padding(bottom = 16.dp, end = 16.dp),
-        )
-        Icon(
-            imageVector = Icons.Default.AddCircle,
-            contentDescription = "Button Capture",
-            tint = Color.White.copy(alpha = 0.7f),
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .clickable { onCapture() }
-                .padding(bottom = 16.dp),
-        )
-    }
 }
 
 @Composable
