@@ -106,6 +106,8 @@ class HomeScreen() : Screen {
         LaunchedEffect(key1 = true) {
             viewModel.loadListRecipes(generateRandomChar())
             controller.providePermission(Permission.CAMERA)
+            controller.providePermission(Permission.LOCATION)
+            controller.providePermission(Permission.COARSE_LOCATION)
         }
 
         Surface(

@@ -8,6 +8,7 @@ import com.pascal.recipes_kmp.presentation.screen.category.CategoryViewModel
 import com.pascal.recipes_kmp.presentation.screen.detail.DetailViewModel
 import com.pascal.recipes_kmp.presentation.screen.favorite.FavoriteViewModel
 import com.pascal.recipes_kmp.presentation.screen.home.HomeViewModel
+import com.pascal.recipes_kmp.presentation.screen.maps.MapsViewModel
 import com.pascal.recipes_kmp.presentation.screen.profile.ProfileViewModel
 import com.pascal.recipes_kmp.presentation.viewModel.MainViewModel
 import org.koin.core.module.dsl.singleOf
@@ -23,4 +24,5 @@ val appModule = module {
     singleOf(::ProfileViewModel)
     singleOf(::CategoryViewModel)
     singleOf(::DetailViewModel)
+    singleOf(::MapsViewModel)
 }

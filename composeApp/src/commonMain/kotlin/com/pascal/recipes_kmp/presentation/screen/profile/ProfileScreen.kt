@@ -53,6 +53,7 @@ import com.pascal.recipes_kmp.domain.usecases.UiState
 import com.pascal.recipes_kmp.presentation.component.CameraGalleryDialog
 import com.pascal.recipes_kmp.presentation.component.ErrorScreen
 import com.pascal.recipes_kmp.presentation.component.LoadingScreen
+import com.pascal.recipes_kmp.presentation.screen.maps.MapsScreen
 import com.pascal.recipes_kmp.utils.Base64.decodeFromBase64
 import com.pascal.recipes_kmp.utils.Base64.encodeToBase64
 import com.preat.peekaboo.image.picker.toImageBitmap
@@ -111,7 +112,7 @@ class ProfileScreen() : Screen {
                                     }
                                 },
                                 onMaps = {
-//                                    onMaps()
+                                    navigator?.push(MapsScreen())
                                 }
                             )
                         }
@@ -130,7 +131,7 @@ class ProfileScreen() : Screen {
                                         }
                                     },
                                     onMaps = {
-//                                        onMaps()
+                                        navigator?.push(MapsScreen())
                                     }
                                 )
                             } else {

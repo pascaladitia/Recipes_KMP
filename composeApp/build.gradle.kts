@@ -29,7 +29,6 @@ kotlin {
             baseName = "MyFramework"
             isStatic = false
             export(project(":composeApp"))
-            transitiveExport = false // This is default.
             embedBitcode(BitcodeEmbeddingMode.BITCODE)
         }
 
