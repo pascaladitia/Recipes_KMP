@@ -5,4 +5,6 @@ plugins {
     alias(libs.plugins.buildKonfig).apply(false)
     alias(libs.plugins.kotlinx.serialization).apply(false)
     alias(libs.plugins.sqlDelight).apply(false)
+    alias(libs.plugins.maps.secrets).apply(false)
+    alias(libs.plugins.kotlin.cocoapods).apply(false)
 }

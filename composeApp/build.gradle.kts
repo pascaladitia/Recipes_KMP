@@ -4,6 +4,8 @@ import com.codingfeline.buildkonfig.compiler.FieldSpec
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode
+import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 
 plugins {
     alias(libs.plugins.multiplatform)
@@ -12,9 +14,29 @@ plugins {
     alias(libs.plugins.buildKonfig)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.sqlDelight)
+    alias(libs.plugins.maps.secrets)
+    alias(libs.plugins.kotlin.cocoapods)
 }
 
 kotlin {
+    cocoapods {
+        version = "1.0"
+        summary = "Some description for a Kotlin/Native module"
+        homepage = "Link to a Kotlin/Native module homepage"
+        name = "MyCocoaPod"
+
+        framework {
+            baseName = "MyFramework"
+            isStatic = false
+            export(project(":composeApp"))
+            transitiveExport = false // This is default.
+            embedBitcode(BitcodeEmbeddingMode.BITCODE)
+        }
+
+        xcodeConfigurationToNativeBuildType["CUSTOM_DEBUG"] = NativeBuildType.DEBUG
+        xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = NativeBuildType.RELEASE
+    }
+
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -101,6 +123,9 @@ kotlin {
             implementation(libs.sqlDelight.driver.android)
             implementation(libs.androidx.preference.ktx)
             implementation(libs.koin.android)
+            api (libs.maps.compose)
+            api(libs.play.services.location)
+            api (libs.play.services.maps)
         }
 
         iosMain.dependencies {
