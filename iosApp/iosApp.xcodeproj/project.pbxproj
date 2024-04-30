@@ -10,7 +10,6 @@
 		A93A953B29CC810C00F8E227 /* iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93A953A29CC810C00F8E227 /* iosApp.swift */; };
 		A93A953F29CC810D00F8E227 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A93A953E29CC810D00F8E227 /* Assets.xcassets */; };
 		A93A954229CC810D00F8E227 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A93A954129CC810D00F8E227 /* Preview Assets.xcassets */; };
-		B0E39213908C2F001F7FB7CF /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAD47599341F89576954FD8B /* Pods_iosApp.framework */; };
 		CEEE7DBC2BD79D1600D1102D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CEEE7DBB2BD79D1600D1102D /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
@@ -21,7 +20,6 @@
 		A93A953A29CC810C00F8E227 /* iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosApp.swift; sourceTree = "<group>"; };
 		A93A953E29CC810D00F8E227 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A93A954129CC810D00F8E227 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CAD47599341F89576954FD8B /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEEE7DBB2BD79D1600D1102D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -31,7 +29,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEEE7DBC2BD79D1600D1102D /* libsqlite3.tbd in Frameworks */,
-				B0E39213908C2F001F7FB7CF /* Pods_iosApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,7 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				CEEE7DBB2BD79D1600D1102D /* libsqlite3.tbd */,
-				CAD47599341F89576954FD8B /* Pods_iosApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -89,7 +85,6 @@
 				78A9FEAE0624B591243B030B /* Pods-iosApp.debug.xcconfig */,
 				3BF5D8BF33F31A19FEF2C4CE /* Pods-iosApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

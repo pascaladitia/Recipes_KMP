@@ -38,6 +38,7 @@ fun MapsContent(
 
     Box(
         modifier = modifier
+            .padding(top = 48.dp)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
@@ -60,11 +61,7 @@ fun MapsContent(
                 title = uiState.selectedCinema?.name ?: "",
                 subTitle = uiState.selectedCinema?.description ?: ""
             ) {
-//                navigateToMap(
-//                    context = platformContext,
-//                    deviceLocation = uiState.selectedCinema?.location,
-//                    destinationName = uiState.selectedCinema?.name ?: ""
-//                )
+
             }
         }
     }
